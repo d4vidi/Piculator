@@ -55,22 +55,28 @@ class MainActivity : Activity() {
         btnTriggerPi!!.setOnClickListener {
             txtPiResultWR.get()!!.visibility = INVISIBLE
             progressPiCalcWR.get()!!.visibility = VISIBLE
-            
-            this.threadExec.execute {
-                idlingResource?.increment()
-                customIdlingResource?.latch()
 
-                val result = Piculator().calculate(100000000).toString()
-                txtPiResultWR.get()?.post {
-                    progressPiCalcWR.get()?.visibility = INVISIBLE
+btnTriggerPi.post {
+    Thread.sleep(10000)
+    progressPiCalcWR.get()?.visibility = INVISIBLE
+    txtPiResultWR.get()?.visibility = VISIBLE
+}
 
-                    txtPiResultWR.get()?.text = result
-                    txtPiResultWR.get()?.visibility = VISIBLE
-
-                    idlingResource?.decrement()
-                    customIdlingResource?.release()
-                }
-            }
+//            this.threadExec.execute {
+//                idlingResource?.increment()
+//                customIdlingResource?.latch()
+//
+//                val result = Piculator().calculate(100000000).toString()
+//                txtPiResultWR.get()?.post {
+//                    progressPiCalcWR.get()?.visibility = INVISIBLE
+//
+//                    txtPiResultWR.get()?.text = result
+//                    txtPiResultWR.get()?.visibility = VISIBLE
+//
+//                    idlingResource?.decrement()
+//                    customIdlingResource?.release()
+//                }
+//            }
         }
     }
 
